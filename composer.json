@@ -1,0 +1,57 @@
+{
+  "name": "flipboxfactory/craft-initiatives",
+  "description": "Initiatives plugin for craft CMS",
+  "version": "1.0.0",
+  "type": "craft-plugin",
+  "license": "proprietary",
+  "keywords": [
+    "cms",
+    "craftcms",
+    "postmark",
+    "mailer",
+    "yii2"
+  ],
+  "support": {
+    "email": "support@flipboxfactory.com",
+    "issues": "https://github.com/flipboxfactory/organizations/issues?state=open",
+    "source": "https://github.com/flipboxfactory/organizations",
+    "docs": "https://github.com/flipboxfactory/organizations",
+    "rss": "https://github.com/flipboxfactory/organizations/commits/master.atom"
+  },
+  "require": {
+    "craftcms/cms": "^3.0",
+    "flipboxfactory/craft-ember": "^2.2",
+    "flipboxfactory/craft-elements-nested-index": "^2.1"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.2",
+    "codeception/codeception": "^2.4.0",
+    "vlucas/phpdotenv": "^2.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "flipbox\\craft\\initiatives\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "flipbox\\craft\\initiatives\\tests\\": "tests/src/"
+    }
+  },
+  "extra": {
+    "name": "Initiatives",
+    "handle": "initiatives",
+    "class": "flipbox\\craft\\initiatives\\Initiatives",
+    "developer": "Flipbox Digital",
+    "developerUrl": "https://www.flipboxdigital.com",
+    "changelogUrl": "https://raw.githubusercontent.com/flipboxfactory/craft-initiatives/master/CHANGELOG.md",
+    "documentationUrl": "https://github.com/flipboxfactory/craft-initiatives",
+    "hasCpSettings": true,
+    "hasCpSection": true,
+    "schemaVersion": "1.0.0",
+    "branch-alias": {
+      "dev-develop": "1.0.x-dev",
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}

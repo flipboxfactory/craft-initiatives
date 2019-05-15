@@ -1,0 +1,5 @@
+{% macro complete(action) %}
+    {% if action %}
+        {% do craft.initiatives.action.complete(action) %}
+    {% endif %}
+{% endmacro %}

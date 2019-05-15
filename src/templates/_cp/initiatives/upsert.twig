@@ -1,0 +1,101 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+{% block actionButton %}
+    <div class="btngroup submit right">
+        <input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul>
+                <li>
+                    <a class="formsubmit"
+                       data-redirect="{{ continueEditingUrl|hash }}">
+                        {{ "Save and continue editing"|t('app') }}
+                        {{ forms.optionShortcutLabel('S') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <input type="hidden" name="action"
+           value="{{ baseActionPath }}/{% if initiative.id %}update{% else %}create{% endif %}">
+    {{ redirectInput(baseCpPath) }}
+
+    {% if initiative.id %}<input type="hidden" name="initiative" value="{{ initiative.id }}">{% endif %}
+
+    <div id="fields">
+        {% include "initiatives/_cp/initiatives/__fields" with {
+            element: initiative,
+            fieldLayout: initiative.getFieldLayout()
+        } only %}
+
+        {% if initiative.id %}
+            <div id="user-index"{% if tabs|length > 1 %} class="hidden"{% endif %}>
+                {% set sources = craft.app.elementIndexes.getSources(elementType, 'initiatives') %}
+                {% include "nested-element-index/_elements/index" with {
+                    element: initiative,
+                    sources: sources,
+                    customizableSources: false,
+                    container: 'nested-index-organization-users',
+                    elementType: elementType,
+                    indexJsClass: usersIndexJsClass,
+                    indexJs: usersIndexJs,
+                    inputJsClass: usersInputJsClass,
+                    inputJs: usersInputJs
+                } only %}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+{% block details %}
+    <div id="settings" class="meta">
+
+        {{ forms.textField({
+            label: "Slug"|t('app'),
+            siteId: initiative.siteId,
+            id: 'slug',
+            name: 'slug',
+            value: initiative.slug,
+            placeholder: "Enter slug"|t('app'),
+            errors: (initiative.getErrors('slug')|merge(initiative.getErrors('uri')))
+        }) }}
+
+        {% if parentOptionCriteria is defined %}
+            {{ forms.elementSelectField({
+                label: "Parent"|t('app'),
+                id: 'parentId',
+                name: 'parentId',
+                elementType: className(initiative),
+                selectionLabel: "Choose"|t('app'),
+                sources: ['*'],
+                criteria: parentOptionCriteria,
+                limit: 1,
+                elements: (parent is defined and parent ? [parent]),
+                errors: initiative.getErrors('parent')
+            }) }}
+        {% endif %}
+
+        {{ forms.lightswitchField({
+            label: "Enabled"|t('app'),
+            id: 'enabled',
+            name: 'enabled',
+            on: initiative.id ? initiative.enabled : true,
+            errors: initiative.getErrors('enabled')
+        }) }}
+    </div>
+
+    {% hook 'initiatives.initiative.edit.sidebar' %}
+{% endblock %}
+
+{% if not initiative.slug %}
+    {% js %}
+        window.slugGenerator = new Craft.SlugGenerator('#title', '#slug');
+    {% endjs %}
+{% endif %}

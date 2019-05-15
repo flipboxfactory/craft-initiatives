@@ -1,0 +1,10 @@
+{% requireLogin %}
+{% block initiativeContent %}
+    {% if not initiative.isTarget(currentUser) %}
+        {% block initiativeNotTargetContent %}{% endblock %}
+    {% elseif initiative.hasCompleted(currentUser) %}
+        {% block initiativeCompletedContent %}{% endblock %}
+    {% else %}
+        {% block initiativeInputContent %}{% endblock %}
+    {% endif %}
+{% endblock %}

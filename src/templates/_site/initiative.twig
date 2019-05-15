@@ -1,0 +1,6 @@
+{% macro complete(initiative, user) %}
+    {% if initiative and user %}
+        {% from "initiatives/action" import complete as completeAction %}
+        {% do completeAction(initiative.createAction(user)) %}
+    {% endif %}
+{% endmacro %}

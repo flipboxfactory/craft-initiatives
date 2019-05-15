@@ -1,0 +1,78 @@
+{% extends "initiatives/_cp/settings/_layout" %}
+
+{% block actionButton %}
+    <div class="buttons right">
+        <a href="{{ url(baseCpPath ~ '/new') }}" class="btn submit add icon">{{ "New initiative"|t('initiatives') }}</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <p id="no-initiatives"{% if initiatives|length %} class="hidden"{% endif %}>
+        {{ "No initiatives exist yet."|t('app') }}
+    </p>
+
+    <table id="initiatives" class="data fullwidth collapsible{% if initiatives|length == 0 %} hidden{% endif %}">
+        <thead>
+        <th scope="col">{{ "Name"|t('initiatives') }}</th>
+        <th scope="col">{{ "Handle"|t('initiatives') }}</th>
+        <th scope="col">{{ "Type"|t('initiatives') }}</th>
+        <td class="thin"></td>
+        </thead>
+        <tbody>
+        {% for initiative in initiatives %}
+            <tr data-id="{{ initiative.id }}" data-name="{{ initiative.title }}">
+                <th scope="row" data-title="{{ 'Name'|t('initiatives') }}">
+                    <span class="status{% if initiative.enabled %} active{% endif %}"></span>
+                    <a href="{{ url(baseCpPath ~ '/' ~ initiative.id) }}">{{ initiative.title }}</a>
+                </th>
+                <td data-title="{{ 'Handle'|t('initiatives') }}"><code>{{ initiative.slug }}</code></td>
+                <td data-title="{{ 'Type'|t('initiatives') }}"><code>{{ className(initiative) }}</code></td>
+
+                <td class="thin">
+                    <form method="post" accept-charset="UTF-8">
+                        {{ csrfInput() }}
+                        <div class="btn menubtn" data-icon="settings" title="Actions" tabindex="0"
+                             role="combobox"></div>
+                        <div class="menu">
+                            <ul>
+                                <li>{% if initiative.enabled %}
+                                        <a class="formsubmit"
+                                           data-param="id"
+                                           data-value="{{ initiative.id }}"
+                                           data-action="{{ baseActionPath }}/disable"
+                                           data-redirect="{{ continueEditingUrl|hash }}">
+                                            {{ "Disable"|t('initiatives') }}
+                                        </a>
+                                    {% else %}
+                                        <a class="formsubmit"
+                                           data-param="id"
+                                           data-value="{{ initiative.id }}"
+                                           data-action="{{ baseActionPath }}/enable"
+                                           data-redirect="{{ continueEditingUrl|hash }}">
+                                            {{ "Enable"|t('initiatives') }}
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <hr>
+                            <ul>
+                                <li>
+                                    <a class="formsubmit"
+                                       data-param="id"
+                                       data-value="{{ initiative.id }}"
+                                       data-action="{{ baseActionPath }}/delete"
+                                       data-redirect="{{ continueEditingUrl|hash }}" class="delete"
+                                       title="{{ 'Delete'|t('initiatives') }}" role="button">
+                                        {{ "Delete"|t('initiatives') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

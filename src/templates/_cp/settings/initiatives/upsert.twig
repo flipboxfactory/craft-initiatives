@@ -1,0 +1,64 @@
+{% extends "initiatives/_cp/settings/_layout" %}
+{% import "_includes/forms" as forms %}
+
+{% block actionButton %}
+    <div class="btngroup submit right">
+        <input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul role="listbox">
+                <li>
+                    <a class="formsubmit"
+                       data-redirect="{{ continueEditingUrl|hash }}">
+                        {{ "Save and continue editing"|t('app') }}
+                        {{ forms.optionShortcutLabel('S') }}
+                    </a>
+                </li>
+                <li>
+                    <a class="formsubmit"
+                       data-redirect="{{ (baseCpPath~'/new')|hash }}">
+                        {{ "Save and add another"|t('app') }}
+                    </a>
+                </li>
+            </ul>
+            {% if initiative.id %}
+                <hr/>
+                <ul role="listbox">
+                    <li>
+                        <a class="formsubmit error"
+                           data-action="{{ baseActionPath }}/delete"
+                           data-confirm="{{ 'Are you sure you want to delete this initiative type?'|t('initiatives') }}"
+                           data-redirect="{{ baseCpPath|hash }}"
+                           role="option"
+                           tabindex="-1">{{ "Delete"|t('app') }}</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <input type="hidden" name="action"
+           value="{{ baseActionPath }}/{% if initiative.id %}update{% else %}create{% endif %}">
+    {% if initiative.id %}<input type="hidden" name="initiative" value="{{ initiative.id }}">{% endif %}
+    {{ redirectInput(baseCpPath) }}
+
+    {{ forms.textField({
+        label: "Name"|t('initiatives'),
+        id: 'title',
+        name: 'title',
+        value: initiative.title,
+        errors: initiative.getErrors('title'),
+        first: true,
+        autofocus: true,
+        required: true,
+        maxlength: 255
+    }) }}
+
+    <div id="layout" class="hidden">
+        {% include "_includes/fieldlayoutdesigner" with {
+            fieldLayout: initiative.getFieldLayout()
+        } only %}
+    </div>
+{% endblock %}
