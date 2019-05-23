@@ -3,7 +3,7 @@
   "description": "Initiatives plugin for craft CMS",
   "version": "1.0.0",
   "type": "craft-plugin",
-  "license": "proprietary",
+  "license": "MIT",
   "keywords": [
     "cms",
     "craftcms",
