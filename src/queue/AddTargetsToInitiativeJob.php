@@ -37,7 +37,6 @@ class AddTargetsToInitiativeJob extends BaseJob
                     ->one()
                 )
             ) {
-
                 $record = (new UserAssociation)
                     ->setUserId($user->getId() ?: false)
                     ->setElementId($this->initiativeId);

@@ -206,9 +206,9 @@ class InitiativesController extends AbstractController
         // Breadcrumbs
         $variables['crumbs'][] = [
             'label' => Craft::t(
-                    'initiatives',
-                    "Edit"
-                ) . ": " . $initiative->title,
+                'initiatives',
+                "Edit"
+            ) . ": " . $initiative->title,
             'url' => UrlHelper::url(
                 $variables['baseCpPath'] . '/' . $initiative->getId()
             )
@@ -238,9 +238,9 @@ class InitiativesController extends AbstractController
         // Breadcrumbs
         $variables['crumbs'][] = [
             'label' => Craft::t(
-                    'initiatives',
-                    "Edit"
-                ) . ": " . $initiative->title,
+                'initiatives',
+                "Edit"
+            ) . ": " . $initiative->title,
             'url' => UrlHelper::url(
                 $variables['baseCpPath'] . '/' . $initiative->getId()
             )

@@ -250,7 +250,8 @@ class Initiatives extends Plugin
                 'initiatives/settings' => 'initiatives/cp/settings/view/initiatives/index',
                 'initiatives/settings/initiatives' => 'initiatives/cp/settings/view/initiatives/index',
                 'initiatives/settings/initiatives/new' => 'initiatives/cp/settings/view/initiatives/upsert',
-                'initiatives/settings/initiatives/<identifier:\d+>' => 'initiatives/cp/settings/view/initiatives/upsert',
+                'initiatives/settings/initiatives/<identifier:\d+>' =>
+                    'initiatives/cp/settings/view/initiatives/upsert',
 
                 'initiatives' => 'initiatives/cp/view/initiatives/index',
                 'initiatives/<identifier:\d+>' => 'initiatives/cp/view/initiatives/upsert'

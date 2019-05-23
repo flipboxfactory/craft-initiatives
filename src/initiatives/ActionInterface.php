@@ -49,5 +49,4 @@ interface ActionInterface
      * @return string
      */
     public function __toString(): string;
-
 }

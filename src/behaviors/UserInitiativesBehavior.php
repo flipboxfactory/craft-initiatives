@@ -90,7 +90,6 @@ class UserInitiativesBehavior extends Behavior
     private function dissociateInitiatives(User $user)
     {
         foreach ($user->getInitiatives()->all() as $initiative) {
-
             if (null !== ($record = UserAssociation::findOne([
                     'userId' => $user->getId(),
                     'elementId' => $initiative->getId()

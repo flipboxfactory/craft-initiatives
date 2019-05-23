@@ -2,7 +2,6 @@
 
 namespace flipbox\craft\initiatives\cp\actions\initiatives;
 
-
 use craft\base\ElementInterface;
 use flipbox\craft\ember\actions\elements\UpdateElement;
 use flipbox\craft\initiatives\elements\Initiative;

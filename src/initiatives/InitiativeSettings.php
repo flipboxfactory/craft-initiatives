@@ -70,7 +70,6 @@ class InitiativeSettings extends Model implements InitiativeSettingsInterface
             if (array_key_exists($key, $route)) {
                 $value = $route[$key];
                 if (is_array($row)) {
-
                     if (!is_array($value)) {
                         $value = [$value];
                     }

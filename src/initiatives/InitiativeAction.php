@@ -105,8 +105,10 @@ class InitiativeAction extends Model implements ActionInterface
 
         // Validate
         if ($runValidation && !$this->validate()) {
-            Craft::info('Element not saved due to validation error: ' . print_r($action->getErrors(), true),
-                __METHOD__);
+            Craft::info(
+                'Element not saved due to validation error: ' . print_r($action->getErrors(), true),
+                __METHOD__
+            );
 
             return false;
         }
@@ -137,7 +139,6 @@ class InitiativeAction extends Model implements ActionInterface
             }
 
             $transaction->commit();
-
         } catch (\Throwable $e) {
             $record->status = $record::STATUS_ERROR;
             $record->save(true, ['status', 'dateUpdated']);
